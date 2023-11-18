@@ -134,7 +134,18 @@ __4. Navigate to the 4. Queryable Encryption folder__
 * Show Line 129 trying to retrieve the same credit card record inserted
 * Run the program.cs  
 
+__5. Navigate to the 5. Auto HA folder__
 
+* From a separate terminal/shell, execute the Python scripts to start continuously inserting records into and from the Atlas deployed database collection __AUTO_HA.records__, specifying the parameter for mongodb URI (include retryWrites and retryReads equal to false in the URL you provide here), e.g.:
+  ```bash
+  ./continuous-insert.py 'mongodb+srv://<username>:<password>@testcluster-abcd.mongodb.net?retryWrites=true'
+  ```
+* View the terminal/shell output of the Python scripts to check it has successfully connected to the Atlas database and is reporting that records are being inserted and read
+* From the Atlas console, select the __.../Test Failover__ option to force a failure of the replica-set primary server; the Atlas console will then show a dialog similar to the following:
+
+![atlasfailover](img/atlasfailover.png "atlasfailover")
+
+* If the failure is detected and DB connection error is found, it will be written to the "tracker.txt" file - lines 56-63 at the exact time an error was found and when the driver reconnected to the DB
 
 ---
 ## Measurement for scenario 4
@@ -142,3 +153,20 @@ __4. Navigate to the 4. Queryable Encryption folder__
 __1. Go to Compass and show that the fields are all encrypted and cannot be accessed__
 
 __2. View the terminal output after program.cs runs to see the retrieved document - show that the values are decrypted and visible only to the application__
+
+---
+## Measurement for scenario 5
+
+After using the Atlas console's __Test Failure__ feature (when the _retryable writes_ feature is employed), look for connection error data similar to the following in the "tracker.txt":
+  ```
+  2019-01-01 18:27:27.148666 - INSERT 4110
+  2019-01-01 18:27:27.828104 - INSERT 4140
+  2019-01-01 18:27:28.497667 - INSERT 4170
+  2019-01-01 18:27:29.093474 - DB-CONNECTION-PROBLEM: connection closed
+  2019-01-01 18:27:31.534841 - RECONNECTED-TO-DB
+  2019-01-01 18:27:31.599981 - INSERT 4200
+  2019-01-01 18:27:32.272013 - INSERT 4230
+  2019-01-01 18:27:32.909000 - INSERT 4260
+  ```
+
+There should be no errors logged because retrywrites=true is enabled, ensuring no exceptions or downtime is experienced by the application even when a server went down and a failover happened on the MongoDB Atlas cluster
