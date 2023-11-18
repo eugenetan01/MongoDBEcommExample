@@ -142,6 +142,9 @@ __5. Navigate to the 5. Auto HA folder__
   ```
 * View the terminal/shell output of the Python scripts to check it has successfully connected to the Atlas database and is reporting that records are being inserted and read
 * From the Atlas console, select the __.../Test Failover__ option to force a failure of the replica-set primary server; the Atlas console will then show a dialog similar to the following:
+  
+![atlasfailover](img/atlasfailover.png "atlasfailover")
+
 * If the failure is detected and DB connection error is found, it will be written to the "tracker.txt" file - lines 56-63 at the exact time an error was found and when the driver reconnected to the DB
 
 ---
