@@ -1,4 +1,4 @@
-# Sheng Shiong Technical Feasiblity Workshop
+# MongoDB Ecommerce Example
 
 __1. The ability to do product recommendations__ <br/>
 __2. The ability to search for related products (i.e. searching for “short grain” rice and getting “japanico” rice)__ <br/>
