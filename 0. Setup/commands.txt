@@ -1,0 +1,2 @@
+mongoimport --uri mongodb+srv://sa:admin@shengshiong.g3aer.mongodb.net --db shengshiong --collection product_catalogue --type csv --file product_catalog.csv --headerline
+mongorestore --uri mongodb+srv://sa:admin@shengshiong.g3aer.mongodb.net/

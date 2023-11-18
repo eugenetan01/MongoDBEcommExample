@@ -1,0 +1,14 @@
+// Run this in search query tester on Atlas UI
+
+[
+  {
+    $search: {
+      index: "product_synonyms",
+      text: {
+        path: "itemDescription",
+        query: "turkey",
+        synonyms: "synonym_mapping"
+      }
+    }
+  }
+]

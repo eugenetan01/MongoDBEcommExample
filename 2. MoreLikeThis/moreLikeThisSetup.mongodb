@@ -1,0 +1,30 @@
+use("shengshiong");
+
+db.getCollection("product_catalog_categories").aggregate([
+  {
+    $search: {
+      index: "moreLikeThis",
+      moreLikeThis: {
+        like: {
+          itemDescription: "short grain",
+          category: "SGrice",
+        },
+      },
+    },
+  },
+  {
+    $project: {
+      _id: 1,
+      itemDescription: 1,
+      category: 1,
+      score: {
+        $meta: "searchScore",
+      },
+    },
+  },
+  {
+    $sort: {
+      score: -1,
+    },
+  },
+]);

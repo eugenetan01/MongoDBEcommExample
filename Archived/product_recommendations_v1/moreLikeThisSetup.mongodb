@@ -1,0 +1,42 @@
+use("shengshiong");
+
+db.product_catalog.updateMany(
+  { itemDescription: "chicken" },
+  { $set: { category: "poultry" } }
+);
+
+db.product_catalog.updateMany(
+  { itemDescription: "citrus fruit" },
+  { $set: { category: "fruit" } }
+);
+
+db.product_catalog.updateMany(
+  { itemDescription: "berries" },
+  { $set: { category: "fruit" } }
+);
+
+db.product_catalog.updateMany(
+  { itemDescription: "beef" },
+  { $set: { category: "poultry" } }
+);
+
+db.product_catalog.updateMany(
+  { itemDescription: "tropical fruit" },
+  { $set: { category: "fruit" } }
+);
+
+use("shengshiong");
+
+db.getCollection("product_ catalog_categories").aggregate([
+  {
+    $search: {
+      index: "moreLikeThis",
+      moreLikeThis: {
+        like: {
+          itemDescription: "short grain",
+          category: "rice",
+        },
+      },
+    },
+  },
+]);
