@@ -9,8 +9,8 @@ using System.Text.Json.Nodes;
 
 class Program
 {
-    static string hfToken = "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";
-    static string embeddingUrl = "https://api-inference.huggingface.co/pipeline/feature-extraction/sentence-transformers/all-MiniLM-L6-v2";
+    static string hfToken = "<HF token>";
+    static string embeddingUrl = "<embed url>";
 
     static IMongoCollection<BsonDocument> collection;
 
